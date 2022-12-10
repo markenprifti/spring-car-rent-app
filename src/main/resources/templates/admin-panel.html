@@ -73,7 +73,7 @@
 
                               <div class="row detail" th:each="listing : ${carListings}">
                                   <div class="col-12 col-sm-12 col-md-12 col-lg-4 p-0" style="width: 400px; height: 180px;">
-                                      <img th:src="@{${listing.imageName}}" alt="" style="width: 100%; height: 100%;">
+                                      <img th:src="@{${listing.imagePath}}" alt="" style="width: 100%; height: 100%;">
                                   </div>
                                   <div class="col-12 col-sm-12 col-md-12 col-lg-8 p-0">
                                       <div class="detail-box">
@@ -81,13 +81,13 @@
                                           <p>
                                           <div class="offer">
                                               <span class="offer-text">Brand:</span>
-                                              <span class="offer-text-2" th:text="${listing.car.brand}"></span>
+                                              <span class="offer-text-2" th:text="${listing.brand}"></span>
                                           </div>
                                           </p>
                                           <ul>
-                                              <li th:text="'Model: ' + ${listing.car.model}"></li>
-                                              <li th:text="'Year: ' + ${listing.car.year}"><strong></strong></li>
-                                              <li th:text="'Fuel Type: ' + ${listing.car.fuelType}"><strong></strong></li>
+                                              <li th:text="'Model: ' + ${listing.model}"></li>
+                                              <li th:text="'Year: ' + ${listing.year}"><strong></strong></li>
+                                              <li th:text="'Fuel Type: ' + ${listing.fuelType}"><strong></strong></li>
                                           </ul>
                                           <h6><span th:text="'Price: ' + ${listing.price} + ' EUR'"></span></h6>
                                       </div>

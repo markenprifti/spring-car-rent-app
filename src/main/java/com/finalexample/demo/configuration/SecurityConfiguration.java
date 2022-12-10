@@ -18,14 +18,21 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private static final String[] PUBLIC_ENDPOINTS = {"/", "/home", "/contact", "/cars", "/about-us", "/upload-image/**"};
+
+    private static final String[] ADMIN_ENDPOINTS = {"/admin", "/admin/**"};
+
+    private static final String[] USER_ENDPOINTS = {"/user", "/user/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/", "/home", "about-us", "/contact").permitAll()
-                .antMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/user", "/user/**").hasAnyAuthority("USER")
+                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
+                .antMatchers(ADMIN_ENDPOINTS).hasAnyAuthority("ADMIN")
+                .antMatchers(USER_ENDPOINTS).hasAnyAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable().cors()
