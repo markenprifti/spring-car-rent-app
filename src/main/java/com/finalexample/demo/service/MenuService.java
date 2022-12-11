@@ -28,7 +28,6 @@ public class MenuService {
     );
 
     private static final List<MyMenu> ADMIN_MENU = Arrays.asList(
-            new MyMenu("Homepage", "/"),
             new MyMenu("Admin Panel", "/admin"),
             new MyMenu("Contact Us", "/contact"),
             new MyMenu("Logout", "/logout")

@@ -11,6 +11,9 @@ public class HomeController extends BaseController {
 
     @GetMapping("")
     public String getHomeView(Model model) {
+        if ("ADMIN".equals(extractAuathority())) {
+            return ok("redirect:admin", model);
+        }
         return ok("index", model);
     }
 }

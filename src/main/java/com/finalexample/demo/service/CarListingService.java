@@ -1,9 +1,12 @@
 package com.finalexample.demo.service;
 
 import com.finalexample.demo.model.entity.CarListing;
+import com.finalexample.demo.model.response.AllCarsResponse;
 import com.finalexample.demo.model.response.CarListingResponse;
 import com.finalexample.demo.repository.CarListingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,25 @@ public class CarListingService {
     private final ImageService imageService;
 
     private final CarListingRepository carListingRepository;
+
+    public AllCarsResponse retrieveAllListings(Pageable pageable){
+        Page<CarListing> carListingPage = carListingRepository.findAll(pageable);
+
+        List<CarListingResponse> carListingResponses = carListingPage
+                .stream()
+                .map(this::buildCarListingResponse)
+                .collect(Collectors.toList());
+
+        int currentPage = pageable.getPageNumber();
+        int totalPages = carListingPage.getTotalPages();
+
+        AllCarsResponse allCarsResponse = new AllCarsResponse();
+
+        allCarsResponse.setListingResponses(carListingResponses);
+        allCarsResponse.setCurrentPage(currentPage);
+        allCarsResponse.setTotalPage(totalPages);
+        return allCarsResponse;
+    }
 
     public List<CarListingResponse> retrieveAll() {
         List<CarListing> carListings = carListingRepository.findAll();
