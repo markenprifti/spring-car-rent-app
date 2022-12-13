@@ -19,7 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_ENDPOINTS = {"/", "/home", "/contact", "/cars", "/about-us", "/upload-image/**"};
+    private static final String[] PUBLIC_ENDPOINTS = {"/", "/home", "/contact", "/cars", "/about-us", "/upload-image/**","/cars/**"};
 
     private static final String[] ADMIN_ENDPOINTS = {"/admin", "/admin/**"};
 

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +49,19 @@ public class CarListingService {
                 .collect(Collectors.toList());
     }
 
+    public CarListingResponse retrieveCarListingById(Long id) {
+        Optional<CarListing> optionalCarListing = carListingRepository.findById(id);
+
+        if (optionalCarListing.isEmpty()) {
+            throw new RuntimeException("This car does not exist.");
+        }
+
+        CarListing carListing = optionalCarListing.get();
+
+        CarListingResponse carListingResponse = buildCarListingResponse(carListing);
+        return carListingResponse;
+    }
+
     private CarListingResponse buildCarListingResponse(CarListing carListing) {
         CarListingResponse carListingResponse = new CarListingResponse();
 
@@ -65,5 +80,12 @@ public class CarListingService {
         carListingResponse.setModel(carListing.getCar().getModel());
         carListingResponse.setYear(carListing.getCar().getYear());
         return carListingResponse;
+    }
+
+    public CarListingResponse retrieveById(Long id) {
+        CarListing carListing = carListingRepository
+                .findById(id).orElseThrow(() -> new NoSuchElementException("Car Listing not found!"));
+
+        return buildCarListingResponse(carListing);
     }
 }

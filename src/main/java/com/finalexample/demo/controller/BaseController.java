@@ -58,4 +58,26 @@ public class BaseController {
 
         return getPrincipal().getName();
     }
+
+    public String success(String successMessage, Model model) {
+        String username = extractUsername();
+        String authority = extractAuathority();
+
+        model.addAttribute("successMessage", successMessage);
+        model.addAttribute("username", username);
+        model.addAttribute("menu_list", menuService.retrieveMenuByAuthority(authority));
+
+        return "success";
+    }
+
+    public String error(String errorMessage, Model model) {
+        String username = extractUsername();
+        String authority = extractAuathority();
+
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("username", username);
+        model.addAttribute("menu_list", menuService.retrieveMenuByAuthority(authority));
+
+        return "error";
+    }
 }

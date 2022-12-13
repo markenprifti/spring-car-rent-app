@@ -23,6 +23,7 @@ public class MenuService {
     private static final List<MyMenu> USER_MENU = Arrays.asList(
             new MyMenu("Homepage", "/"),
             new MyMenu("Cars", "/cars"),
+            new MyMenu("My Reservations", "/user/reserve"),
             new MyMenu("Contact Us", "/contact"),
             new MyMenu("Logout", "/logout")
     );
